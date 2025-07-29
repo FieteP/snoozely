@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snoozely - Schlafzeiten</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    select, input[type="time"] {
+      color: black;
+      text-align: center;
+    }
+    label {
+      display: block;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans transition-colors flex items-center justify-center min-h-screen px-4">
+  <div class="w-full max-w-md p-6 space-y-6 bg-gray-800 rounded-lg shadow-lg">
+    <div class="flex flex-col items-center mb-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-center">Snoozely</h1>
+      <h2 class="text-xl md:text-1xl font-bold text-center mt-1">- Der Schlafzeiten Rechner</h2>
+    </div>
+
+    <div>
+      <label class="mb-2 font-semibold">Altersgruppe:</label>
+      <select id="ageGroup" class="w-full p-2 text-sm md:text-base border rounded text-black">
+        <option value="infant">Kleinkinder (0-3 Jahre)</option>
+        <option value="child">Kinder (4-12 Jahre)</option>
+        <option value="teen" selected>Teenager (13-17 Jahre)</option>
+        <option value="adult">Erwachsene (18-64 Jahre)</option>
+        <option value="senior">Senioren (65+ Jahre)</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="mb-2 font-semibold">Ziel:</label>
+      <select id="goal" class="w-full p-2 text-sm md:text-base border rounded text-black">
+        <option value="balanced">🎯 Ausgeglichen Alltag</option>
+        <option value="muscle" selected>🏋️ Muskelaufbau</option>
+        <option value="recovery">🧘 Regeneration/Stressabbau</option>
+        <option value="focus">⚡ Wach & fokussiert</option>
+        <option value="performance">🏃 Performance/Training</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="mb-2 font-semibold">Aufstehzeit:</label>
+      <input type="time" id="wakeUpTime" class="w-full p-2 text-sm md:text-base border rounded" value="07:00" />
+    </div>
+
+    <button onclick="calculateSleep()" class="w-full p-3 text-sm md:text-base bg-blue-600 text-white rounded font-bold hover:bg-blue-700 transition">Berechnen</button>
+
+    <div id="result" class="text-center font-semibold text-lg"></div>
+
+    <div id="recommendation" class="text-sm md:text-base text-center font-medium"></div>
+  </div>
+
+  <script>
+    const baseRanges = {
+      infant: [12, 17],
+      child: [9, 12],
+      teen: [8, 10],
+      adult: [7, 9],
+      senior: [7, 8]
+    };
+
+    const goalAdjustments = {
+      balanced: 0,
+      muscle: 0.5,
+      recovery: 0.25,
+      focus: 0.25,
+      performance: 0.5
+    };
+
+    function formatHours(value) {
+      return value % 1 === 0 ? Math.round(value) : value.toFixed(1);
+    }
+
+  function calculateSleep() {
+  const ageGroup = document.getElementById('ageGroup').value;
+  const goal = document.getElementById('goal').value;
+  const wakeUp = document.getElementById('wakeUpTime').value;
+
+  const [minBase, maxBase] = baseRanges[ageGroup];
+  const adjustment = goalAdjustments[goal];
+  const minSleep = minBase + adjustment;
+  const maxSleep = maxBase + adjustment;
+
+  const [hours, minutes] = wakeUp.split(":").map(Number);
+  const wakeMinutes = hours * 60 + minutes;
+
+  const sleepStartMin = wakeMinutes - (maxSleep * 60);
+  const sleepStartMax = wakeMinutes - (minSleep * 60);
+
+  const toTime = mins => {
+    let h = Math.floor((mins + 1440) % 1440 / 60);
+    let m = (mins + 1440) % 60;
+    return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+  };
+
+  const result = document.getElementById('result');
+  result.innerHTML = `Empfohlene Schlafenszeit: <span class="text-blue-400 font-semibold">${toTime(sleepStartMin)}</span> - <span class="text-blue-400 font-semibold">${toTime(sleepStartMax)}</span> 💤<br>` +
+                     `Optimal: <span style="color: #22c55e;">${formatHours(minSleep)}</span> - <span style="color: #22c55e;">${formatHours(maxSleep)}</span> Stunden`;
+
+  const recommendation = document.getElementById('recommendation');
+  recommendation.innerHTML = `📱 Tipp: Vermeide mindestens <strong>30 Minuten vor dem Schlafen</strong> Bildschirme und sorge für eine ruhige, dunkle Umgebung.`;
+}
+
+
+    calculateSleep();
+
+    document.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault(); // Verhindert ggf. das Absenden von Formularen oder andere Default-Aktionen
+    calculateSleep();
+  }
+});
+
+document.getElementById('ageGroup').addEventListener('change', calculateSleep);
+document.getElementById('goal').addEventListener('change', calculateSleep);
+document.getElementById('wakeUpTime').addEventListener('input', calculateSleep);
+
+  </script>
+</body>
+</html>
