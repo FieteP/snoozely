@@ -45,12 +45,13 @@
       </select>
     </div>
 
-    <div>
-      <label class="mb-2 font-semibold">Aufstehzeit:</label>
-      <input type="time" id="wakeUpTime" class="w-full p-2 text-sm md:text-base border rounded" value="07:00" />
+    <div class="mb-4">
+      <label class="mb-2 font-semibold block text-center">Aufstehzeit:</label>
+      <div class="flex justify-center">
+        <input type="time" id="wakeUpTime" class="w-48 p-2 text-sm md:text-base border rounded text-center" value="07:00" />
+      </div>
     </div>
 
-    <button onclick="calculateSleep()" class="w-full p-3 text-sm md:text-base bg-blue-600 text-white rounded font-bold hover:bg-blue-700 transition">Berechnen</button>
 
     <div id="result" class="text-center font-semibold text-lg"></div>
 
@@ -101,7 +102,7 @@
   };
 
   const result = document.getElementById('result');
-  result.innerHTML = `Empfohlene Schlafenszeit: <span class="text-blue-400 font-semibold">${toTime(sleepStartMin)}</span> - <span class="text-blue-400 font-semibold">${toTime(sleepStartMax)}</span> 💤<br>` +
+  result.innerHTML = `Empfohlene Schlafenszeit: <br> <span class="text-blue-400 font-semibold">${toTime(sleepStartMin)}</span> - <span class="text-blue-400 font-semibold">${toTime(sleepStartMax)}</span> 💤<br>` +
                      `Optimal: <span style="color: #22c55e;">${formatHours(minSleep)}</span> - <span style="color: #22c55e;">${formatHours(maxSleep)}</span> Stunden`;
 
   const recommendation = document.getElementById('recommendation');
