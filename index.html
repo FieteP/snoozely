@@ -16,46 +16,46 @@
     }
   </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans transition-colors flex items-center justify-center min-h-screen px-4">
-  <div class="w-full max-w-md p-6 space-y-6 bg-gray-800 rounded-lg shadow-lg">
-    <div class="flex flex-col items-center mb-4">
-      <h1 class="text-2xl md:text-3xl font-bold text-center">Snoozely</h1>
-      <h2 class="text-xl md:text-1xl font-bold text-center mt-1">- Der Schlafzeiten Rechner</h2>
-    </div>
-
-    <div>
-      <label class="mb-2 font-semibold">Altersgruppe:</label>
-      <select id="ageGroup" class="w-full p-2 text-sm md:text-base border rounded text-black">
-        <option value="infant">Kleinkinder (0-3 Jahre)</option>
-        <option value="child">Kinder (4-12 Jahre)</option>
-        <option value="teen" selected>Teenager (13-17 Jahre)</option>
-        <option value="adult">Erwachsene (18-64 Jahre)</option>
-        <option value="senior">Senioren (65+ Jahre)</option>
-      </select>
-    </div>
-
-    <div>
-      <label class="mb-2 font-semibold">Ziel:</label>
-      <select id="goal" class="w-full p-2 text-sm md:text-base border rounded text-black">
-        <option value="balanced">🎯 Ausgeglichen Alltag</option>
-        <option value="muscle" selected>🏋️ Muskelaufbau</option>
-        <option value="recovery">🧘 Regeneration/Stressabbau</option>
-        <option value="focus">⚡ Wach & fokussiert</option>
-        <option value="performance">🏃 Performance/Training</option>
-      </select>
-    </div>
-
-    <div class="mb-4">
-      <label class="mb-2 font-semibold block text-center">Aufstehzeit:</label>
-      <div class="flex justify-center">
-        <input type="time" id="wakeUpTime" class="w-48 p-2 text-sm md:text-base border rounded text-center" value="07:00" />
+<body class="bg-gray-900 text-gray-100 font-sans transition-colors">
+  <div class="min-h-screen flex items-center justify-center px-4">
+    <div class="w-full max-w-md p-6 space-y-6 bg-gray-800 rounded-lg shadow-lg">
+      <div class="flex flex-col items-center mb-4">
+        <h1 class="text-2xl md:text-3xl font-bold text-center">Snoozely</h1>
+        <h2 class="text-xl md:text-1xl font-bold text-center mt-1">- Der Schlafzeiten Rechner</h2>
       </div>
+
+      <div>
+        <label class="mb-2 font-semibold">Altersgruppe:</label>
+        <select id="ageGroup" class="w-full p-2 text-sm md:text-base border rounded text-black">
+          <option value="infant">Kleinkinder (0-3 Jahre)</option>
+          <option value="child">Kinder (4-12 Jahre)</option>
+          <option value="teen" selected>Teenager (13-17 Jahre)</option>
+          <option value="adult">Erwachsene (18-64 Jahre)</option>
+          <option value="senior">Senioren (65+ Jahre)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="mb-2 font-semibold">Ziel:</label>
+        <select id="goal" class="w-full p-2 text-sm md:text-base border rounded text-black">
+          <option value="balanced">🎯 Ausgeglichen Alltag</option>
+          <option value="muscle" selected>🏋️ Muskelaufbau</option>
+          <option value="recovery">🧘 Regeneration/Stressabbau</option>
+          <option value="focus">⚡ Wach & fokussiert</option>
+          <option value="performance">🏃 Performance/Training</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="mb-2 font-semibold block text-center">Aufstehzeit:</label>
+        <div class="flex justify-center">
+          <input type="time" id="wakeUpTime" class="w-48 p-2 text-sm md:text-base border rounded text-center" value="07:00" />
+        </div>
+      </div>
+
+      <div id="result" class="text-center font-semibold text-lg"></div>
+      <div id="recommendation" class="text-sm md:text-base text-center font-medium"></div>
     </div>
-
-
-    <div id="result" class="text-center font-semibold text-lg"></div>
-
-    <div id="recommendation" class="text-sm md:text-base text-center font-medium"></div>
   </div>
 
   <script>
